@@ -1,0 +1,16 @@
+# Root ignores
+.DS_Store
+.idea/
+*.iml
+/.vscode/
+# Build output (Maven/Gradle)
+target/
+build/
+# OS/Java stuff
+*.log
+*.class
+# Coverage
+.coverage
+*.exec
+# Maven wrapper caches (optional)
+.mvn/wrapper/
