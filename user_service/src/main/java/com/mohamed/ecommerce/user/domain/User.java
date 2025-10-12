@@ -25,8 +25,8 @@ public class User {
     @Column(name = "full_name", nullable = false, length = 255)
     private String fullName;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @org.hibernate.annotations.Generated(org.hibernate.annotations.GenerationTime.INSERT)
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
     private LocalDateTime createdAt;
 
     public UUID getId() {
