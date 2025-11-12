@@ -14,4 +14,4 @@ build/
 *.exec
 # Maven wrapper caches (optional)
 .mvn/wrapper/
-*/.env
+**/.env
