@@ -32,5 +32,9 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    // POST /api/user/login --> 200 OK with token or 401 with invalid credentials
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(service.login(request));
+    }
 }
