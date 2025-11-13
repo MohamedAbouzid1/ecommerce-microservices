@@ -1,3 +1,3 @@
-# Ecommerce Microservices Monorepo
+# scalable Ecommerce Microservices Project
 
-- user-service
+will be added later
