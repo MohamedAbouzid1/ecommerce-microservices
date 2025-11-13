@@ -2,8 +2,11 @@ package com.example.product_service.service;
 
 import com.example.product_service.entity.Product;
 import com.example.product_service.repository.ProductRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,7 +31,11 @@ public class ProductService {
     // read by id
     public Product findById(Long id) {
         return repo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Product not found with id: " + id
+                        )
+                );
     }
     // update
     public Product update(Long id, Product updated) {
@@ -45,17 +52,24 @@ public class ProductService {
     //delete
     public void delete(Long id) {
         if (!repo.existsById(id)) {
-            throw new IllegalArgumentException("Cannot delete. Product not found with id: " + id);
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Cannot delete. Product not found with id: " + id
+            );
         }
         repo.deleteById(id);
     }
     // business validation
     private void validateProduct(Product product) {
         if (product.getPrice() == null || product.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Price must be greater than 0");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Price must be greater than 0");
         }
         if (product.getStock() == null || product.getStock() < 0) {
-            throw new IllegalArgumentException("Stock cannot be negative");
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Stock cannot be negative");
         }
     }
 }

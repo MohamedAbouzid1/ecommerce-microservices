@@ -2,6 +2,7 @@ package com.example.product_service.web;
 
 import com.example.product_service.entity.Product;
 import com.example.product_service.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -28,20 +29,26 @@ public class ProductController {
         Product product = service.findById(id);
         return toProductResponse(product);
     }
+    // POST create
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse create(@Valid @RequestBody CreateProductRequest request) {
         Product product = toProductEntity(request);
         Product created = service.create(product);
         return toProductResponse(created);
     }
     // POST update
-    @PostMapping("/{id}")
-    public ProductResponse update(@Valid @PathVariable Long id,@RequestBody UpdateProductRequest request) {
+    @PutMapping("/{id}")
+    public ProductResponse update(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateProductRequest request
+    ) {
         Product product = toProductEntity(request);
         Product updated = service.update(id, product);
         return toProductResponse(updated);
     }
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void  delete(@PathVariable Long id) {
         service.delete(id);
     }

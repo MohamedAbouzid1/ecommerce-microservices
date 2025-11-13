@@ -1,6 +1,7 @@
 package com.example.product_service.web;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ProductResponse {
@@ -9,7 +10,7 @@ public class ProductResponse {
     private String description;
     private BigDecimal price;
     private Integer stock;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public Long getId() {
         return id;
@@ -51,11 +52,11 @@ public class ProductResponse {
         this.stock = stock;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }
