@@ -1,41 +1,23 @@
-package com.example.product_service.entity;
+package com.example.product_service.web;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
-@Entity
-@Table(name = "products")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long id;
-
+public class UpdateProductRequest {
+    @NotBlank
     private String name;
-
+    @NotBlank
     private String description;
-
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal price;
-
+    @NotNull
+    @PositiveOrZero
     private Integer stock;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false)
-    private Date createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Date();
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -68,8 +50,4 @@ public class Product {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
 }

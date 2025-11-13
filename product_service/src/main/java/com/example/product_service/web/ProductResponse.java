@@ -1,34 +1,16 @@
-package com.example.product_service.entity;
-
-import jakarta.persistence.*;
+package com.example.product_service.web;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "products")
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+public class ProductResponse {
     private Long id;
-
     private String name;
-
     private String description;
-
     private BigDecimal price;
-
     private Integer stock;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Date();
-    }
     public Long getId() {
         return id;
     }
@@ -68,8 +50,12 @@ public class Product {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+
     public Date getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
